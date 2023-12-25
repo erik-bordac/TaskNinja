@@ -50,7 +50,7 @@
                         <td>@task.Name</td>
                         <td>@task.Description</td>
                         <td>@task.CreatedDate</td>
-                        <td>@task.DueDate</td>
+                        <td class="@(task.DueDate < DateTime.Now ? "text-danger" : "")">@task.DueDate</td>
                         <td>@task.Priority</td>
                         <td>@task.Status</td>
                     </tr>
