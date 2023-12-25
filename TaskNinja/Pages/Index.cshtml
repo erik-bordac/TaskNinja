@@ -5,7 +5,9 @@
 }
 
 <div class="container mt-4">
-    
+    <div class="d-flex flex-row-reverse">
+        <a class="btn btn-secondary" asp-page="./Index" asp-route-sortBy="@Model.SortBy" asp-route-sortOrder="@Model.SortOrder" asp-route-hideCompleted="@Model.SwitchHideCompleted()">@(Model.HideCompleted == "true" ? "Show Completed" : "Hide Completed")</a>
+    </div>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -37,6 +39,7 @@
             @{
                 foreach (var task in Model.Tasks)
                 {
+                    if (task.Status == Models.Status.Completed && Model.HideCompleted == "true") continue;
                     string style = "";
                     if (task.Status == Models.Status.Completed) style = "success";
                     if (task.Status == Models.Status.Aborted) style = "danger";

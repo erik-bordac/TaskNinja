@@ -17,7 +17,8 @@ namespace TaskNinja.Pages
 
 
         public string? SortOrder { get; set; } = "";
-        public string SortBy { get; set; }
+        public string SortBy { get; set; } = "";
+        public string HideCompleted { get; set; } = "";
 
         public IndexModel(ILogger<IndexModel> logger, ITodoTaskService taskService)
         {
@@ -25,12 +26,13 @@ namespace TaskNinja.Pages
             _task_service = taskService;
         }
 
-        public async void OnGet(string sortBy, string sortOrder)
+        public async void OnGet(string sortBy, string sortOrder, string hideCompleted)
         {
-            SortBy = sortBy;
+            if (!String.IsNullOrEmpty(sortBy)) SortBy = sortBy;
+            if (!String.IsNullOrEmpty(sortOrder)) SortOrder = sortOrder;
+            if (!String.IsNullOrEmpty(hideCompleted)) HideCompleted = hideCompleted;
 
             Tasks = await _task_service.GetAllAsync();
-            if (!String.IsNullOrEmpty(sortOrder)) SortOrder = sortOrder;
 
             switch (sortBy)
             {
@@ -75,6 +77,16 @@ namespace TaskNinja.Pages
                     return "desc";
                 }
             }
+            return "";
+        }
+
+        public string SwitchHideCompleted()
+        {
+            if (String.IsNullOrEmpty(HideCompleted))
+            {
+                return "true";
+            }
+
             return "";
         }
     }
