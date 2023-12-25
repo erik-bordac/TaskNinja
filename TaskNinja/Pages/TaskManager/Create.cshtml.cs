@@ -53,8 +53,8 @@ namespace TaskNinja.Pages.TaskManager
 
     public class InputModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DueDate { get; set; }
         [DataType(DataType.Time)]
