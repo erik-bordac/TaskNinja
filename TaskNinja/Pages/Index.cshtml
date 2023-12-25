@@ -12,25 +12,25 @@
         <thead>
             <tr>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="ID" asp-route-sortOrder="@Model.SwitchSortOrder("ID")">ID</a>
+                    <a asp-page="/Index" asp-route-sortBy="ID" asp-route-sortOrder="@Model.SwitchSortOrder("ID")">ID</a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="Name" asp-route-sortOrder="@Model.SwitchSortOrder("Name")">Name</a>
+                    <a asp-page="/Index" asp-route-sortBy="Name" asp-route-sortOrder="@Model.SwitchSortOrder("Name")">Name</a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="Description" asp-route-sortOrder="@Model.SwitchSortOrder("Description")">Description</a>
+                    <a asp-page="/Index" asp-route-sortBy="Description" asp-route-sortOrder="@Model.SwitchSortOrder("Description")">Description</a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="CreatedDate" asp-route-sortOrder="@Model.SwitchSortOrder("CreatedDate")">Created Date</a>
+                    <a asp-page="/Index" asp-route-sortBy="CreatedDate" asp-route-sortOrder="@Model.SwitchSortOrder("CreatedDate")">Created Date</a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="DueDate" asp-route-sortOrder="@Model.SwitchSortOrder("DueDate")">Due Date</a>
+                    <a asp-page="/Index" asp-route-sortBy="DueDate" asp-route-sortOrder="@Model.SwitchSortOrder("DueDate")">Due Date</a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="Priority" asp-route-sortOrder="@Model.SwitchSortOrder("Priority")">Priority</a>
+                    <a asp-page="/Index" asp-route-sortBy="Priority" asp-route-sortOrder="@Model.SwitchSortOrder("Priority")">Priority</a>
                 </th>
                 <th>
-                    <a asp-page="./Index" asp-route-sortBy="Status" asp-route-sortOrder="@Model.SwitchSortOrder("Status")">Status</a>
+                    <a asp-page="/Index" asp-route-sortBy="Status" asp-route-sortOrder="@Model.SwitchSortOrder("Status")">Status</a>
                 </th>
 
             </tr>
@@ -58,4 +58,7 @@
             }
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary" asp-page="./TaskManager/Create">Create New Task</a>
+    </div>
 </div>
