@@ -47,7 +47,7 @@ namespace TaskNinja.Pages.TaskManager
                 Status = Models.Status.NotStarted
             });
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("./Index");
         }
     }
 
