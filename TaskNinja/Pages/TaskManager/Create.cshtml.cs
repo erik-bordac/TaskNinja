@@ -8,14 +8,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskNinja.Models;
 using TaskNinja.Services;
+using TaskNinja.Services.Interfaces;
 
 namespace TaskNinja.Pages.TaskManager
 {
     public class CreateModel : PageModel
     {
-        private readonly TaskNinja.Services.DatabaseContext _context;
+        private readonly ITodoTaskService _context;
 
-        public CreateModel(TaskNinja.Services.DatabaseContext context)
+        public CreateModel(ITodoTaskService context)
         {
             _context = context;
         }
@@ -36,7 +37,7 @@ namespace TaskNinja.Pages.TaskManager
                 return Page();
             }
 
-            _context.Tasks.Add(new TodoTask
+            await _context.CreateAsync(new TodoTask
             {
                 Name = InputModel.Name,
                 Description = InputModel.Description,
@@ -45,7 +46,6 @@ namespace TaskNinja.Pages.TaskManager
                 Priority = InputModel.Priority,
                 Status = Models.Status.NotStarted
             });
-            await _context.SaveChangesAsync();
 
             return RedirectToPage("/Index");
         }

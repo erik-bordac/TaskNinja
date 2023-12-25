@@ -12,9 +12,11 @@ namespace TaskNinja.Services
             _db = db;
         }
 
-        public Task<TodoTask> CreateAsync(TodoTask task)
+        public async Task<TodoTask> CreateAsync(TodoTask task)
         {
-            throw new NotImplementedException();
+            _db.Tasks.Add(task);
+            await _db.SaveChangesAsync();
+            return task;
         }
 
         public Task<TodoTask> DeleteAsync(TodoTask task)
