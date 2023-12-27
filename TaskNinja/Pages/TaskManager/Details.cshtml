@@ -6,7 +6,6 @@
         var task = Model.Task;
         string style = "";
         if (task.Status == Models.Status.Completed) style = "success";
-        if (task.Status == Models.Status.Aborted) style = "danger";
         if (task.Status == Models.Status.InProgress) style = "warning";
         if (task.Status == Models.Status.NotStarted) style = "default";
     }
@@ -36,30 +35,17 @@
             </div>
         </div>
         <div class="mt-4 mb-4 w-25">
-            @if (task.Status != Models.Status.Completed)
-            {
-                <a>
-                    <input type="image" src="~/check2.svg" class="w-25 h-25"/>
-                </a>
-                <a>
-                    <input type="image" src="~/hammer.svg" class="w-25 h-25"/>
-                </a>
-            }
-            <a>
-                <input type="image" src="~/trash3-fill.svg" class="w-25 h-25"/>
-            </a>
-        </div>
-        <div class="mt-4 mb-4 w-25">
         <form method="post">
             <div clas="row">
                 <label asp-for="Action" class="control-label"></label>
                 <select asp-for="Action" class="form-control">
                     @foreach (var item in Enum.GetValues(typeof(Models.Status)))
                     {
-                        <option value="@item">@item</option>
+                        <option value="@item">Mark @item</option>
                     }
                 </select>
-                <input type="submit" asp-route="@task.ID"/>
+                <input type="submit"/>
+                <input type="hidden" name="id" value="@task.ID"/>
             </div>
         </form>
         </div>

@@ -42,7 +42,6 @@
                     if (task.Status == Models.Status.Completed && Model.HideCompleted == "true") continue;
                     string style = "";
                     if (task.Status == Models.Status.Completed) style = "success";
-                    if (task.Status == Models.Status.Aborted) style = "danger";
                     if (task.Status == Models.Status.InProgress) style = "warning";
                     if (task.Status == Models.Status.NotStarted) style = "default";
                     <tr class="table-@style" onclick="location.href = '@Url.Page("./Details", values: new { id = task.ID })'">

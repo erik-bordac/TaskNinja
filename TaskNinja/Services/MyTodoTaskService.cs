@@ -38,5 +38,18 @@ namespace TaskNinja.Services
             return res;
             #pragma warning restore CS8603 // Possible null reference return.
         }
+
+        public async Task<TodoTask> UpdateAsync(TodoTask newTask)
+        {
+            var t = _db.Tasks.FirstOrDefault(x => x.ID == newTask.ID);
+
+            if (t is not null)
+            {
+                t = newTask;
+            }
+
+            await _db.SaveChangesAsync();
+            return t;
+        }
     }
 }

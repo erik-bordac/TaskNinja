@@ -17,7 +17,6 @@ namespace TaskNinja.Models
         Completed,
         InProgress,
         NotStarted,
-        Aborted
     }
 
     public enum Priority

@@ -30,5 +30,12 @@ namespace TaskNinja.Pages.TaskManager
 
             return Page();
         }
+
+        public async void OnPost(int id)
+        {
+            var task = await _service.GetByIdAsync(id);
+            task.Status = Action;
+            Task = await _service.UpdateAsync(task);
+        }
     }
 }
