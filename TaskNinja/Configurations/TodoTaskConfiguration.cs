@@ -14,94 +14,95 @@ namespace TaskNinja.Configurations
             builder.Property(x => x.Priority).HasConversion(v => v.ToString(), v => (Priority)Enum.Parse(typeof(Priority), v));
             
             // dummy data
-            builder.HasData(new List<TodoTask> {
+            builder.HasData(new List<TodoTask> 
+            {
                 new TodoTask
                 {
                     ID = 1,
                     Name = "Task 1",
-                    Description = "Dummy task description 1",
-                    CreatedDate = DateTime.Now.AddDays(-5),
-                    DueDate = DateTime.Now.AddDays(10),
-                    Status = Status.NotStarted,
-                    Priority = Priority.Low
+                    Description = "Description for Task 1",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(-7),
+                    Status = Status.InProgress,
+                    Priority = Priority.High
                 },
                 new TodoTask
                 {
                     ID = 2,
                     Name = "Task 2",
-                    Description = "Dummy task description 2",
-                    CreatedDate = DateTime.Now.AddDays(-3),
-                    DueDate = DateTime.Now.AddDays(8),
-                    Status = Status.InProgress,
+                    Description = "Description for Task 2",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(14),
+                    Status = Status.NotStarted,
                     Priority = Priority.Medium
                 },
                 new TodoTask
                 {
                     ID = 3,
                     Name = "Task 3",
-                    Description = "Dummy task description 3",
-                    CreatedDate = DateTime.Now.AddDays(-2),
-                    DueDate = DateTime.Now.AddDays(-1),
-                    Status = Status.NotStarted,
-                    Priority = Priority.High
+                    Description = "Description for Task 3",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(21),
+                    Status = Status.Completed,
+                    Priority = Priority.Low
                 },
                 new TodoTask
                 {
                     ID = 4,
                     Name = "Task 4",
-                    Description = "Dummy task description 4",
-                    CreatedDate = DateTime.Now.AddDays(-7),
-                    DueDate = DateTime.Now.AddDays(12),
-                    Status = Status.Completed,
-                    Priority = Priority.Medium
-                },
-                new TodoTask
-                {
-                    ID = 5,
-                    Name = "Task 5",
-                    Description = "Dummy task description 5",
-                    CreatedDate = DateTime.Now.AddDays(-1),
-                    DueDate = DateTime.Now.AddDays(5),
-                    Status = Status.NotStarted,
-                    Priority = Priority.Low
-                },
-                new TodoTask
-                {
-                    ID = 6,
-                    Name = "Task 6",
-                    Description = "Dummy task description 6",
-                    CreatedDate = DateTime.Now.AddDays(-4),
-                    DueDate = DateTime.Now.AddDays(7),
+                    Description = "Description for Task 4",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(-30),
                     Status = Status.InProgress,
                     Priority = Priority.High
                 },
                 new TodoTask
                 {
+                    ID = 5,
+                    Name = "Task 5",
+                    Description = "Description for Task 5",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(10),
+                    Status = Status.Completed,
+                    Priority = Priority.Medium
+                },
+                new TodoTask
+                {
+                    ID = 6,
+                    Name = "Task 6",
+                    Description = "Description for Task 6",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(-2),
+                    Status = Status.NotStarted,
+                    Priority = Priority.Low
+                },
+                new TodoTask
+                {
                     ID = 7,
                     Name = "Task 7",
-                    Description = "Dummy task description 7",
-                    CreatedDate = DateTime.Now.AddDays(-6),
-                    DueDate = DateTime.Now.AddDays(20),
-                    Status = Status.NotStarted,
+                    Description = "Description for Task 7",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(21),
+                    Status = Status.InProgress,
                     Priority = Priority.Medium
                 },
                 new TodoTask
                 {
                     ID = 8,
                     Name = "Task 8",
-                    Description = "Dummy task description 8",
-                    CreatedDate = DateTime.Now.AddDays(-2),
-                    DueDate = DateTime.Now.AddDays(9),
-                    Status = Status.InProgress,
+                    Description = "Description for Task 8",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(30),
+                    Status = Status.NotStarted,
                     Priority = Priority.Low
                 },
                 new TodoTask
                 {
                     ID = 9,
                     Name = "Task 9",
-                    Description = "Dummy task description 9",
-                    CreatedDate = DateTime.Now.AddDays(-8),
-                    DueDate = DateTime.Now.AddDays(14),
+                    Description = "Description for Task 9",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(7),
                     Status = Status.Completed,
                     Priority = Priority.High
                 },
@@ -109,12 +110,13 @@ namespace TaskNinja.Configurations
                 {
                     ID = 10,
                     Name = "Task 10",
-                    Description = "Dummy task description 10",
-                    CreatedDate = DateTime.Now.AddDays(-1),
-                    DueDate = DateTime.Now.AddDays(5),
-                    Status = Status.NotStarted,
-                    Priority = Priority.High
-                } }); 
+                    Description = "Description for Task 10",
+                    CreatedDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(14),
+                    Status = Status.InProgress,
+                    Priority = Priority.Medium
+                } 
+            }); 
         }
     }
 }

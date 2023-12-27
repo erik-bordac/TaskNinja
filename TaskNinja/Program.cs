@@ -13,6 +13,7 @@ namespace TaskNinja
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<ITodoTaskService, MyTodoTaskService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DatabaseContext"));

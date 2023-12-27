@@ -14,8 +14,10 @@ namespace TaskNinja.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new TodoTaskConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
         }
 
         public DbSet<TodoTask> Tasks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
