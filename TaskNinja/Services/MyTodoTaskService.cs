@@ -19,9 +19,10 @@ namespace TaskNinja.Services
             return task;
         }
 
-        public Task<TodoTask> DeleteAsync(TodoTask task)
+        public async Task<int> DeleteAsync(TodoTask task)
         {
-            throw new NotImplementedException();
+            _db.Tasks.Remove(task);
+            return await _db.SaveChangesAsync();
         }
 
         public Task<List<TodoTask>> GetAllAsync()

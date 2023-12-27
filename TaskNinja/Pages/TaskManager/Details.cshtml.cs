@@ -37,5 +37,13 @@ namespace TaskNinja.Pages.TaskManager
             task.Status = Action;
             Task = await _service.UpdateAsync(task);
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            var task = _service.GetByIdAsync(id).Result;
+            task.Status = Action;
+            _service.DeleteAsync(task);
+            return RedirectToPage("/TaskManager/Index");
+        }
     }
 }
