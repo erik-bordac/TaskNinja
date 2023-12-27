@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using TaskNinja.Models;
 using TaskNinja.Services;
 using TaskNinja.Services.Interfaces;
@@ -10,6 +11,9 @@ namespace TaskNinja.Pages.TaskManager
     {
         private ITodoTaskService _taskService;
         private ICommentService _commentService;
+        [BindProperty]
+        public InputModel IM { get; set; } = new InputModel();
+
         [BindProperty]
         public TodoTask? Task { get; set; }
 
@@ -27,23 +31,25 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnGet(int id)
         {
-            Task = _taskService.GetByIdAsync(id).Result;
+            loadPage(id);
 
             if (Task is null)
             {
                 return RedirectToPage("/Error");
             }
 
-            Comments = _commentService.GetAllFromTask(Task.ID).Result;
 
             return Page();
         }
 
         public async void OnPost(int id)
         {
+            // update task entry
             var task = await _taskService.GetByIdAsync(id);
             task.Status = Action;
-            Task = await _taskService.UpdateAsync(task);
+            await _taskService.UpdateAsync(task);
+
+            loadPage(id);
         }
 
         public IActionResult OnPostDelete(int id)
@@ -52,6 +58,27 @@ namespace TaskNinja.Pages.TaskManager
             task.Status = Action;
             _taskService.DeleteAsync(task);
             return RedirectToPage("/TaskManager/Index");
+        }
+
+        public IActionResult OnPostComment(int id)
+        {
+            // TODO: comment validation (cant be empty)
+            loadPage(id); // can be removed ???
+            // TODO: insert new comment into db
+
+            return RedirectToPage("/TaskManager/Details", new { id = id });
+        }
+
+        private void loadPage(int id)
+        {
+            Task = _taskService.GetByIdAsync(id).Result;
+            Comments = _commentService.GetAllFromTask(id).Result;
+        }
+
+        public class InputModel
+        {
+            [Required]
+            public string CommentText { get; set; }
         }
     }
 }

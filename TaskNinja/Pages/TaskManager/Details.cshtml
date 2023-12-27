@@ -63,6 +63,15 @@
 
     <div class="border-top mt-4"></div>
     
+    <h3>Comments</h3>
+    <div class="row w-75 m-2">
+        <form method="post" asp-page-handler="Comment" class="row w-100">
+            <textarea clas="w-50" rows="4" asp-for="IM.CommentText"></textarea>
+            <input type="submit" value="Post Comment" class="mt-1"/>
+            <input type="hidden" name="id" value="@task.ID"/>
+            <span asp-asp-validation-for="" class="text-danger"></span>
+        </form>
+    </div>
     @foreach(var comment in Model.Comments)
     {
         <div class="m-2 bg-light w-75 p-2" style="display: inline-block">
