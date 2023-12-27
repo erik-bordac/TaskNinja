@@ -1,0 +1,98 @@
+﻿@page
+@model TaskNinja.Pages.TaskManager.DetailsModel
+
+<div class="container mt-4">
+    @{
+        var task = Model.Task;
+        string style = "";
+        if (task.Status == Models.Status.Completed) style = "success";
+        if (task.Status == Models.Status.Aborted) style = "danger";
+        if (task.Status == Models.Status.InProgress) style = "warning";
+        if (task.Status == Models.Status.NotStarted) style = "default";
+    }
+    <div class="row justify-content-between bg-@style">
+        <div class="col-4">
+            <h1>@Model.Task.Name</h1>
+        </div>
+    </div>
+    <div class="border-top"></div>
+    <div class="row justify-content-between align-items-end">
+        <div class="mt-4 mb-4 w-25">
+            <div class="row">
+                <label class="col-6">Priority:</label>
+                <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.Task.Priority</label>
+            </div>
+            <div class="row">
+                <label class="col-6">Task Created:</label>
+                <label class="col-6">@Model.Task.CreatedDate</label>
+            </div>
+            <div class="row">
+                <label class="col-6">Task Due:</label>
+                <label class="col-6">@Model.Task.DueDate</label>
+            </div>
+            <div class="row">
+                <label class="col-6">Task Status:</label>
+                <label class="col-6">@Model.Task.Status</label>
+            </div>
+        </div>
+        <div class="mt-4 mb-4 w-25">
+            @if (task.Status != Models.Status.Completed)
+            {
+                <a>
+                    <input type="image" src="~/check2.svg" class="w-25 h-25"/>
+                </a>
+                <a>
+                    <input type="image" src="~/hammer.svg" class="w-25 h-25"/>
+                </a>
+            }
+            <a>
+                <input type="image" src="~/trash3-fill.svg" class="w-25 h-25"/>
+            </a>
+        </div>
+        <div class="mt-4 mb-4 w-25">
+        <form method="post">
+            <div clas="row">
+                <label asp-for="Action" class="control-label"></label>
+                <select asp-for="Action" class="form-control">
+                    @foreach (var item in Enum.GetValues(typeof(Models.Status)))
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                <input type="submit" asp-route="@task.ID"/>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <div class="row bg-light">
+        <textarea rows="8"disabled="disabled" spellcheck="false">@Model.Task.Description</textarea>
+    </div>
+
+    <div class="border-top mt-4"></div>
+    
+    <div class="m-2 bg-light w-75 p-2" style="display: inline-block">
+        <div class="row">
+            <h4>Comment #1</h4>
+        </div>
+        <div class="row">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="row justify-content-between">
+            <a asp-page="/Index" class="col-3">Reply</a>
+            <a asp-page="/Index" class="col-3">View Replies (3)</a>
+        </div>
+    </div>
+    <div class="m-2 bg-light w-75 p-2" style="display: inline-block">
+        <div class="row">
+            <h4>Comment #1</h4>
+        </div>
+        <div class="row">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="row justify-content-between">
+            <a asp-page="/Index" class="col-3">Reply</a>
+            <a asp-page="/Index" class="col-3">View Replies (3)</a>
+        </div>
+    </div>
+</div>

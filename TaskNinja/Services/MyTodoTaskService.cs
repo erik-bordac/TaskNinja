@@ -29,9 +29,14 @@ namespace TaskNinja.Services
             return _db.Tasks.ToListAsync();
         }
 
-        public Task<TodoTask> GetByIdAsync(int id)
+        public async Task<TodoTask> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            // Returns TodoTask object or null if doesnt exist
+
+            var res = await _db.Tasks.FirstOrDefaultAsync(x => x.ID == id);
+            #pragma warning disable CS8603 // Possible null reference return.
+            return res;
+            #pragma warning restore CS8603 // Possible null reference return.
         }
     }
 }

@@ -45,7 +45,7 @@
                     if (task.Status == Models.Status.Aborted) style = "danger";
                     if (task.Status == Models.Status.InProgress) style = "warning";
                     if (task.Status == Models.Status.NotStarted) style = "default";
-                    <tr class="table-@style" onclick="location.href = '@Url.Page("/Index", values: new { id = task.ID })'">
+                    <tr class="table-@style" onclick="location.href = '@Url.Page("./Details", values: new { id = task.ID })'">
                         <th scope="row">@task.ID</th>
                         <td>@task.Name</td>
                         <td>@task.Description.Substring(0, Math.Min(30, task.Description.Length-1))</td>
