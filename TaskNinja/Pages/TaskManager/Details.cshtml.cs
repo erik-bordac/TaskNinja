@@ -62,9 +62,10 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnPostComment(int id)
         {
-            // TODO: comment validation (cant be empty)
-            loadPage(id); // can be removed ???
-            // TODO: insert new comment into db
+            if (!String.IsNullOrEmpty(IM.CommentText))
+            {
+                _commentService.CreateComment(new Comment { Content = IM.CommentText, TodoTaskID = Task.ID, CreatedDate = DateTime.Now });
+            }
 
             return RedirectToPage("/TaskManager/Details", new { id = id });
         }
@@ -78,6 +79,7 @@ namespace TaskNinja.Pages.TaskManager
         public class InputModel
         {
             [Required]
+            [MinLength(1)]
             public string CommentText { get; set; }
         }
     }

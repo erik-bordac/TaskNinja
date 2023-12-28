@@ -6,5 +6,6 @@ namespace TaskNinja.Services.Interfaces
     {
         public Task<Comment> GetById(int id);
         public Task<List<Comment>> GetAllFromTask(int taskId);
+        public void CreateComment(Comment comment);
     }
 }

@@ -12,6 +12,13 @@ namespace TaskNinja.Services
         {
             _db = db;
         }
+
+        public async void CreateComment(Comment comment)
+        {
+            _db.Comments.Add(comment);
+            await _db.SaveChangesAsync();
+        }
+
         public Task<List<Comment>> GetAllFromTask(int taskId)
         {
             return _db.Comments.Where(x => x.TodoTaskID == taskId).ToListAsync();

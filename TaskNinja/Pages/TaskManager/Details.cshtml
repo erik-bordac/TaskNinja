@@ -69,7 +69,7 @@
             <textarea clas="w-50" rows="4" asp-for="IM.CommentText"></textarea>
             <input type="submit" value="Post Comment" class="mt-1"/>
             <input type="hidden" name="id" value="@task.ID"/>
-            <span asp-asp-validation-for="" class="text-danger"></span>
+            <span asp-asp-validation-for="IM.CommentText" class="text-danger"></span>
         </form>
     </div>
     @foreach(var comment in Model.Comments)
