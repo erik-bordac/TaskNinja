@@ -13,6 +13,8 @@ namespace TaskNinja.Models
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();   // reference navigation
         public string UserId { get; set; }
         public User User { get; set; } = null!;   // reference navigation
+        public int? TeamId { get; set; }
+        public Team? Team { get; set; } // reference navigation
     }
 
     public enum Status
