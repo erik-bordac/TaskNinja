@@ -1,0 +1,13 @@
+﻿<div class="align-content-end">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="d-flex">
+            <label class="text-light">@User.Identity.Name</label>
+            <a asp-area="Identity" asp-page="/Account/Logout">Sign out</a>
+        </div>
+    }
+    else
+    {
+        <a asp-area="Identity" asp-page="/Account/Login">Sign in</a>
+    }
+</div>

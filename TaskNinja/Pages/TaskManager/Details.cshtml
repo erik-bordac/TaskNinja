@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}"
 @model TaskNinja.Pages.TaskManager.DetailsModel
 
 <div class="container mt-4">
@@ -76,7 +76,7 @@
     {
         <div class="m-2 bg-light w-75 p-2" style="display: inline-block">
             <div class="row">
-                <h4>@comment.ID</h4>
+                <h4>@comment.UserId</h4>
             </div>
             <div class="row">
                 <p>@comment.Content</p>

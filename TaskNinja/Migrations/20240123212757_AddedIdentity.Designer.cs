@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskNinja.Services;
 
@@ -10,12 +11,14 @@ using TaskNinja.Services;
 namespace TaskNinja.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240123212757_AddedIdentity")]
+    partial class AddedIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -165,17 +168,34 @@ namespace TaskNinja.Migrations
                     b.Property<int>("TodoTaskID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("ID");
 
                     b.HasIndex("TodoTaskID");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Content = "First comment on Task 1",
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(6111),
+                            TodoTaskID = 24
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Content = "Another comment on Task 1",
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(6116),
+                            TodoTaskID = 24
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Content = "Comment on Task 2",
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(6118),
+                            TodoTaskID = 25
+                        });
                 });
 
             modelBuilder.Entity("TaskNinja.Models.TodoTask", b =>
@@ -211,6 +231,108 @@ namespace TaskNinja.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Tasks");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5890),
+                            Description = "Description for Task 1",
+                            DueDate = new DateTime(2024, 1, 16, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5930),
+                            Name = "Task 1",
+                            Priority = "High",
+                            Status = "InProgress"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5939),
+                            Description = "Description for Task 2",
+                            DueDate = new DateTime(2024, 2, 6, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5940),
+                            Name = "Task 2",
+                            Priority = "Medium",
+                            Status = "NotStarted"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5943),
+                            Description = "Description for Task 3",
+                            DueDate = new DateTime(2024, 2, 13, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5944),
+                            Name = "Task 3",
+                            Priority = "Low",
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5947),
+                            Description = "Description for Task 4",
+                            DueDate = new DateTime(2023, 12, 24, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5948),
+                            Name = "Task 4",
+                            Priority = "High",
+                            Status = "InProgress"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5950),
+                            Description = "Description for Task 5",
+                            DueDate = new DateTime(2024, 2, 2, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5951),
+                            Name = "Task 5",
+                            Priority = "Medium",
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5955),
+                            Description = "Description for Task 6",
+                            DueDate = new DateTime(2024, 1, 21, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5956),
+                            Name = "Task 6",
+                            Priority = "Low",
+                            Status = "NotStarted"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5959),
+                            Description = "Description for Task 7",
+                            DueDate = new DateTime(2024, 2, 13, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5960),
+                            Name = "Task 7",
+                            Priority = "Medium",
+                            Status = "InProgress"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5962),
+                            Description = "Description for Task 8",
+                            DueDate = new DateTime(2024, 2, 22, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5964),
+                            Name = "Task 8",
+                            Priority = "Low",
+                            Status = "NotStarted"
+                        },
+                        new
+                        {
+                            ID = 9,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5966),
+                            Description = "Description for Task 9",
+                            DueDate = new DateTime(2024, 1, 30, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5967),
+                            Name = "Task 9",
+                            Priority = "High",
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            ID = 10,
+                            CreatedDate = new DateTime(2024, 1, 23, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5970),
+                            Description = "Description for Task 10",
+                            DueDate = new DateTime(2024, 2, 6, 22, 27, 56, 185, DateTimeKind.Local).AddTicks(5972),
+                            Name = "Task 10",
+                            Priority = "Medium",
+                            Status = "InProgress"
+                        });
                 });
 
             modelBuilder.Entity("TaskNinja.Models.User", b =>
@@ -262,7 +384,6 @@ namespace TaskNinja.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
@@ -337,23 +458,10 @@ namespace TaskNinja.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskNinja.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("TodoTask");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaskNinja.Models.TodoTask", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("TaskNinja.Models.User", b =>
                 {
                     b.Navigation("Comments");
                 });

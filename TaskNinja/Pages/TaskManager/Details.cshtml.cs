@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using TaskNinja.Models;
 using TaskNinja.Services;
 using TaskNinja.Services.Interfaces;
@@ -62,9 +63,9 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnPostComment(int id)
         {
-            if (!String.IsNullOrEmpty(IM.CommentText))
+            if (!String.IsNullOrEmpty(IM.CommentText) && User.Identity.IsAuthenticated)
             {
-                _commentService.CreateComment(new Comment { Content = IM.CommentText, TodoTaskID = Task.ID, CreatedDate = DateTime.Now });
+                _commentService.CreateComment(new Comment { Content = IM.CommentText, TodoTaskID = Task.ID, CreatedDate = DateTime.Now, UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)});
             }
 
             return RedirectToPage("/TaskManager/Details", new { id = id });
@@ -78,8 +79,7 @@ namespace TaskNinja.Pages.TaskManager
 
         public class InputModel
         {
-            [Required]
-            [MinLength(1)]
+            [BindProperty, Required]
             public string CommentText { get; set; }
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskNinja.Services;
 
@@ -10,9 +11,11 @@ using TaskNinja.Services;
 namespace TaskNinja.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240124004529_debugRemoveCommentAuthors")]
+    partial class debugRemoveCommentAuthors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
@@ -165,15 +168,9 @@ namespace TaskNinja.Migrations
                     b.Property<int>("TodoTaskID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("ID");
 
                     b.HasIndex("TodoTaskID");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -337,23 +334,10 @@ namespace TaskNinja.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskNinja.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("TodoTask");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaskNinja.Models.TodoTask", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("TaskNinja.Models.User", b =>
                 {
                     b.Navigation("Comments");
                 });

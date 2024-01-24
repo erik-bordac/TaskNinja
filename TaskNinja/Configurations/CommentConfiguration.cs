@@ -8,30 +8,7 @@ namespace TaskNinja.Configurations
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.HasData(new List<Comment>
-            {
-                new Comment
-                {
-                    ID = 1,
-                    Content = "First comment on Task 1",
-                    CreatedDate = DateTime.Now,
-                    TodoTaskID =24 
-                },
-                new Comment
-                {
-                    ID = 2,
-                    Content = "Another comment on Task 1",
-                    CreatedDate = DateTime.Now,
-                    TodoTaskID =24 
-                },
-                new Comment
-                {
-                    ID = 3,
-                    Content = "Comment on Task 2",
-                    CreatedDate = DateTime.Now,
-                    TodoTaskID =25 
-                }
-            });
+            //builder.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.Author);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskNinja.Services;
 
@@ -10,9 +11,11 @@ using TaskNinja.Services;
 namespace TaskNinja.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240123230055_AddedCommentAuthors")]
+    partial class AddedCommentAuthors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
@@ -155,6 +158,9 @@ namespace TaskNinja.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -165,15 +171,11 @@ namespace TaskNinja.Migrations
                     b.Property<int>("TodoTaskID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("TodoTaskID");
+                    b.HasIndex("AuthorId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TodoTaskID");
 
                     b.ToTable("Comments");
                 });
@@ -331,21 +333,19 @@ namespace TaskNinja.Migrations
 
             modelBuilder.Entity("TaskNinja.Models.Comment", b =>
                 {
+                    b.HasOne("TaskNinja.Models.User", "Author")
+                        .WithMany("Comments")
+                        .HasForeignKey("AuthorId");
+
                     b.HasOne("TaskNinja.Models.TodoTask", "TodoTask")
                         .WithMany("Comments")
                         .HasForeignKey("TodoTaskID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskNinja.Models.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Author");
 
                     b.Navigation("TodoTask");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TaskNinja.Models.TodoTask", b =>

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using TaskNinja.Models;
 using TaskNinja.Services;
 using TaskNinja.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace TaskNinja
 {
@@ -12,6 +14,7 @@ namespace TaskNinja
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddDefaultIdentity<User>().AddEntityFrameworkStores<DatabaseContext>();
             builder.Services.AddScoped<ITodoTaskService, MyTodoTaskService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddDbContext<DatabaseContext>(options =>

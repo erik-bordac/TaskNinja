@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TaskNinja.Configurations;
 using TaskNinja.Models;
 
 namespace TaskNinja.Services
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<User>
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
@@ -15,6 +16,8 @@ namespace TaskNinja.Services
         {
             modelBuilder.ApplyConfiguration(new TodoTaskConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<TodoTask> Tasks { get; set; }
