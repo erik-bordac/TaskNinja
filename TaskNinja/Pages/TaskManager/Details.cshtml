@@ -24,6 +24,10 @@
     <div class="row justify-content-between align-items-end">
         <div class="mt-4 mb-4 w-25">
             <div class="row">
+                <label class="col-6">Author:</label>
+                <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.Task.UserId</label>
+            </div>
+            <div class="row">
                 <label class="col-6">Priority:</label>
                 <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.Task.Priority</label>
             </div>
@@ -50,7 +54,7 @@
                         <option value="@item">Mark @item</option>
                     }
                 </select>
-                <input type="submit"/>
+                <input type="submit" value="Submit"/>
                 <input type="hidden" name="id" value="@task.ID"/>
             </div>
         </form>

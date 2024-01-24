@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,6 +24,10 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnGet()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized();
+            }
             return Page();
         }
 
@@ -44,7 +49,8 @@ namespace TaskNinja.Pages.TaskManager
                 CreatedDate = DateTime.Now,
                 DueDate = InputModel.DueDate,
                 Priority = InputModel.Priority,
-                Status = Models.Status.NotStarted
+                Status = Models.Status.NotStarted,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             });
 
             return RedirectToPage("./Index");

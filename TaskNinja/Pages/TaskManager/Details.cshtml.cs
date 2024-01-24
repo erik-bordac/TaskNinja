@@ -65,7 +65,10 @@ namespace TaskNinja.Pages.TaskManager
         {
             if (!String.IsNullOrEmpty(IM.CommentText) && User.Identity.IsAuthenticated)
             {
-                _commentService.CreateComment(new Comment { Content = IM.CommentText, TodoTaskID = Task.ID, CreatedDate = DateTime.Now, UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)});
+                _commentService.CreateComment(new Comment { Content = IM.CommentText, 
+                    TodoTaskID = Task.ID, 
+                    CreatedDate = DateTime.Now,
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)});
             }
 
             return RedirectToPage("/TaskManager/Details", new { id = id });

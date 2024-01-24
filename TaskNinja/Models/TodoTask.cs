@@ -10,7 +10,9 @@ namespace TaskNinja.Models
         public DateTime DueDate { get; set; }
         public Status Status { get; set; }
         public Priority Priority { get; set; }
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();   // reference navigation
+        public string UserId { get; set; }
+        public User User { get; set; } = null!;   // reference navigation
     }
 
     public enum Status
