@@ -12,6 +12,7 @@ namespace TaskNinja.Pages.TaskManager
     {
         private ITodoTaskService _taskService;
         private ICommentService _commentService;
+        private IUserService _userService;
         [BindProperty]
         public InputModel IM { get; set; } = new InputModel();
 
@@ -24,10 +25,11 @@ namespace TaskNinja.Pages.TaskManager
         [BindProperty]
         public List<Comment> Comments { get; set; }
 
-        public DetailsModel(ITodoTaskService taskService, ICommentService commentService)
+        public DetailsModel(ITodoTaskService taskService, ICommentService commentService, IUserService userService)
         {
             _taskService = taskService;
             _commentService = commentService;
+            _userService = userService;
         }
 
         public IActionResult OnGet(int id)
@@ -55,6 +57,8 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnPostDelete(int id)
         {
+            if (!IsAuthor()) return Unauthorized();
+
             var task = _taskService.GetByIdAsync(id).Result;
             task.Status = Action;
             _taskService.DeleteAsync(task);
@@ -72,6 +76,17 @@ namespace TaskNinja.Pages.TaskManager
             }
 
             return RedirectToPage("/TaskManager/Details", new { id = id });
+        }
+
+        public string UserNameFromId(string id)
+        {
+            var user = _userService.GetUserById(id).Result;
+            return user._UserName;
+        }
+
+        public bool IsAuthor()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) == Task.UserId;
         }
 
         private void loadPage(int id)

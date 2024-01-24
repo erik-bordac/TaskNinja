@@ -17,6 +17,7 @@ namespace TaskNinja
             builder.Services.AddDefaultIdentity<User>().AddEntityFrameworkStores<DatabaseContext>();
             builder.Services.AddScoped<ITodoTaskService, MyTodoTaskService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DatabaseContext"));

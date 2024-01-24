@@ -14,10 +14,13 @@
             <h1>@Model.Task.Name</h1>
         </div>
         <div class="col-1 m-2 row justify-content-center my-auto">
-            <form method="post" asp-page-handler="Delete" class="w-100 h-100">
-                <input type="image" src="~/trash3-fill.svg" class="h-75 w-75" asp-asp-page-handler="Delete"></input>
-                <input type="hidden" name="id" value="@task.ID"/>
-            </form>
+            @if (Model.IsAuthor())
+            {
+                <form method="post" asp-page-handler="Delete" class="w-100 h-100">
+                    <input type="image" src="~/trash3-fill.svg" class="h-75 w-75" asp-asp-page-handler="Delete"></input>
+                    <input type="hidden" name="id" value="@task.ID"/>
+                </form>
+            }
         </div>
     </div>
     <div class="border-top"></div>
@@ -25,7 +28,7 @@
         <div class="mt-4 mb-4 w-25">
             <div class="row">
                 <label class="col-6">Author:</label>
-                <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.Task.UserId</label>
+                <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.UserNameFromId(Model.Task.UserId)</label>
             </div>
             <div class="row">
                 <label class="col-6">Priority:</label>
@@ -80,7 +83,7 @@
     {
         <div class="m-2 bg-light w-75 p-2" style="display: inline-block">
             <div class="row">
-                <h4>@comment.UserId</h4>
+                <h4><b>From:</b> @Model.UserNameFromId(comment.UserId)</h4>
             </div>
             <div class="row">
                 <p>@comment.Content</p>
