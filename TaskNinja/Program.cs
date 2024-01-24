@@ -18,6 +18,7 @@ namespace TaskNinja
             builder.Services.AddScoped<ITodoTaskService, MyTodoTaskService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ITeamsService, TeamsService>();
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlite(builder.Configuration.GetConnectionString("DatabaseContext"));
