@@ -9,5 +9,7 @@ namespace TaskNinja.Services.Interfaces
         public Task<TodoTask> CreateAsync(TodoTask task);
         public Task<int> DeleteAsync(TodoTask task);
         public Task<TodoTask> UpdateAsync(TodoTask newTask);
+
+        public Task<List<TodoTask>> GetTasksByTeam(int teamId);
     }
 }

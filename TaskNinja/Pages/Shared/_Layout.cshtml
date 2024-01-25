@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/bootstrap_flatly.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TaskNinja.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="bg-primary">
     <header>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
@@ -40,13 +40,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="main-container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top  text-muted">
+    <footer class="border-top  text-muted foot">
         <div class="container">
             &copy; 2023 - TaskNinja - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
@@ -59,3 +59,27 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    .main-container{
+        margin: 10px;
+        height: 100%;
+    }
+
+    .foot {
+        max-height: 24px;
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        height: 30px;
+        width: 100%;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        min-height: 100%;
+    }
+</style>

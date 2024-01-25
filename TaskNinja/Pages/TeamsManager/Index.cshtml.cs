@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TaskNinja.Models;
-using TaskNinja.Services;
+using TaskNinja.Services.Interfaces;
 
 namespace TaskNinja.Pages.TeamsManager
 {
     public class IndexModel : PageModel
     {
-        private readonly TaskNinja.Services.DatabaseContext _context;
+        [BindProperty]
+        public IEnumerable<Team> MyTeams { get; set; }
+        ITeamsService _teamsService;
 
-        public IndexModel(TaskNinja.Services.DatabaseContext context)
+        public IndexModel(ITeamsService teamsService)
         {
-            _context = context;
+            _teamsService = teamsService;
         }
 
-        public IList<Team> Team { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Team = await _context.Team.ToListAsync();
+            MyTeams = _teamsService.GetTeamsByMember(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
         }
     }
 }

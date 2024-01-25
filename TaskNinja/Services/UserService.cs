@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskNinja.Models;
+using TaskNinja.Services.Interfaces;
 
-namespace TaskNinja.Services.Interfaces
+namespace TaskNinja.Services
 {
     public class UserService : IUserService
     {

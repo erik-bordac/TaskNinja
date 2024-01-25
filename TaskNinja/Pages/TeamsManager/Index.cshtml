@@ -1,37 +1,56 @@
 ﻿@page
 @model TaskNinja.Pages.TeamsManager.IndexModel
-
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>My Teams</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Team[0].Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Team) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <div class="row justify-content-center">
+    @foreach(var team in Model.MyTeams)
+    {
+    <div class="col-md-3 d-flex justify-content-center">
+        <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
+            <a asp-page="./TeamDetails" asp-route-teamId="@team.Id" class="text-white link-underline-primary">
+                <div class="card-body" style="
+                      background: linear-gradient(
+                        45deg,
+                        hsla(168, 85%, 52%, 0.5),
+                        hsla(263, 88%, 45%, 0.5) 100%
+                      );">
+
+                    <h4 class="card-title">@team.Name</h4>
+                    <img src="~/card-checklist.svg" alt="checklist image" width="80%" class="m-3 text-primary" />
+                </div>
+            </a>
+        </div>
+    </div>
+    }
+
+@*         Create Team btn *@        
+        <div class="col-md-3 d-flex justify-content-center">
+            <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
+                <a asp-page="/TeamsManager/Create" class="text-white link-underline-primary">
+                    <div class="card-body" style="
+                          background: linear-gradient(
+                            45deg,
+                            hsla(168, 81%, 82%, 0.50),
+                            hsla(263, 57%, 73%, 0.50) 100%
+                          );">
+
+                        <h4 class="card-title">Create Team</h4>
+                        <img src="~/plus-square.svg" alt="checklist image" width="80%" class="m-3 text-primary" style="padding: 10%;"/>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-anim:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+        filter: hue-rotate(90deg);
+    }
+</style>

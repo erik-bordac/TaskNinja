@@ -40,6 +40,11 @@ namespace TaskNinja.Services
             #pragma warning restore CS8603 // Possible null reference return.
         }
 
+        public async Task<List<TodoTask>> GetTasksByTeam(int teamId)
+        {
+            return await _db.Tasks.Where(t => t.TeamId == teamId).ToListAsync();
+        }
+
         public async Task<TodoTask> UpdateAsync(TodoTask newTask)
         {
             var t = _db.Tasks.FirstOrDefault(x => x.ID == newTask.ID);

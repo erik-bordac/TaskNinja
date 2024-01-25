@@ -12,6 +12,22 @@ namespace TaskNinja.Services
         {
             _db = db;
         }
+
+        public List<string> GetMembersIdByTeamId(int id)
+        {
+            var teamMemberIds = _db.Team
+                .Where(t => t.Id == id)
+                .SelectMany(t => t.Members.Select(m => m.Id))
+                .ToList();
+
+            return teamMemberIds;
+        }
+
+        public async Task<Team> GetTeamById(int id)
+        {
+            return await _db.Team.FirstAsync(t=> t.Id == id);
+        }
+
         public async Task<IEnumerable<Team>> GetTeamsByMember(string userId)
         {
             //var l = await _db.Team.ToListAsync();
