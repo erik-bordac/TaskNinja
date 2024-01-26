@@ -175,7 +175,7 @@ namespace TaskNinja.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("TaskNinja.Models.Team", b =>
@@ -190,7 +190,7 @@ namespace TaskNinja.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Team");
+                    b.ToTable("Team", (string)null);
                 });
 
             modelBuilder.Entity("TaskNinja.Models.TodoTask", b =>
@@ -236,7 +236,7 @@ namespace TaskNinja.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("TaskNinja.Models.User", b =>
@@ -319,7 +319,7 @@ namespace TaskNinja.Migrations
 
                     b.HasIndex("TeamsId");
 
-                    b.ToTable("TeamUser");
+                    b.ToTable("TeamUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
