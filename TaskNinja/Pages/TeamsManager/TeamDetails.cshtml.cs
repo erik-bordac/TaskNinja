@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using TaskNinja.Models;
+using TaskNinja.Pages.TaskManager;
 using TaskNinja.Services.Interfaces;
 
 namespace TaskNinja.Pages.TeamsManager
@@ -18,6 +20,9 @@ namespace TaskNinja.Pages.TeamsManager
         [BindProperty]
         public List<User> TeamMembers { get; set; } = new();
 
+        [BindProperty, Required, EmailAddress]
+        public string InviteMail { get; set; }
+
         public string SortBy { get; set; }
         public string SortOrder { get; set; }
         public string HideCompleted { get; set; }
@@ -31,6 +36,12 @@ namespace TaskNinja.Pages.TeamsManager
             _teamsService = teamsService;
             _userService = userService;
             _todoTaskService = todoTaskService;
+        }
+
+        public class InputModel
+        {
+            [Required, EmailAddress]
+            public string Mail { get; set; }
         }
 
         public async void OnGet(int teamId, string sortBy, string sortOrder, string hideCompleted)
@@ -53,6 +64,12 @@ namespace TaskNinja.Pages.TeamsManager
 
             // get tasks
             TeamTasks = await _todoTaskService.GetTasksByTeam(Team.Id);
+        }
+
+        public void OnPost()
+        {
+            // send invite
+            var x = InviteMail;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace TaskNinja.Services
 
         public async Task<Team> GetTeamById(int id)
         {
-            return await _db.Team.FirstAsync(t=> t.Id == id);
+            return await _db.Team.FirstOrDefaultAsync(t=> t.Id == id);
         }
 
         public IEnumerable<Team> GetTeamsByMember(string userId)

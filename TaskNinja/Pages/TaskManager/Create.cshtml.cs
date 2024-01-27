@@ -8,22 +8,49 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskNinja.Models;
+using TaskNinja.Pages.TeamsManager;
 using TaskNinja.Services;
 using TaskNinja.Services.Interfaces;
 
 namespace TaskNinja.Pages.TaskManager
 {
+    public static class Global
+    {
+        public static int? TeamId { get; set; } 
+    }
+
     public class CreateModel : PageModel
     {
         private readonly ITodoTaskService _context;
+        private ITeamsService _teamsService;
 
-        public CreateModel(ITodoTaskService context)
+
+        public CreateModel(ITodoTaskService context, ITeamsService teamsService)
         {
             _context = context;
+            _teamsService = teamsService;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? teamId)
         {
+            if (teamId is not null) 
+            {
+                var team = _teamsService.GetTeamById((int)teamId);
+                if (team is null)
+                {
+                    return Unauthorized();
+                }
+
+                // current user is not team => can not create tasks for the team
+                if (!_teamsService.GetMembersIdByTeamId((int)teamId).Contains(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? ""))
+                {
+                    return Unauthorized();
+                } else
+                {
+                    Global.TeamId = teamId;
+                }
+            }
+
             if (!User?.Identity?.IsAuthenticated ?? true)
             {
                 return Unauthorized();
@@ -52,9 +79,14 @@ namespace TaskNinja.Pages.TaskManager
                     DueDate = InputModel.DueDate,
                     Priority = InputModel.Priority,
                     Status = Models.Status.NotStarted,
-                    UserId = userId
+                    UserId = userId,
+                    TeamId = Global.TeamId
                 });
-
+            
+            if (Global.TeamId is not null)
+            {
+                return RedirectToPage("/TeamsManager/TeamDetails", new {teamId = Global.TeamId});
+            }
             return RedirectToPage("./Index");
         }
     }

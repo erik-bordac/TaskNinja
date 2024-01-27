@@ -1,13 +1,15 @@
 ﻿@page
 @using TaskNinja.ViewComponents
 @model TaskNinja.Pages.TeamsManager.TeamDetailsModel
-@{
-}
 
 <div class="container-fluid" style="height: 85vh;">
     <div class="row h-100">
         <div class="col-md-10 bg-secondary h-100 border border-5 border-primary rounded-3">
              @await Component.InvokeAsync("Tasks", new ComponentParams(Model.TeamTasks, Model.SortBy, Model.SortOrder, Model.HideCompleted, Model.Team.Id))
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" asp-page="/TaskManager/Create" asp-route-teamId="@Model.Team.Id">Create New Task</a>
+            </div>
+
         </div>
         <div class="col-md-2 bg-secondary h-75 border border-5 border-primary rounded-3">
             <h2>Members</h2>
@@ -37,13 +39,13 @@
 
     <!-- The form -->
     <div class="form-popup" id="myForm">
-        <form action="/action_page.php" class="form-container">
+        <form method="post" class="form-container">
             <h1>Invite member</h1>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <label asp-for="@Model.InviteMail"><b>Email</b></label>
+            <input placeholder="Enter Email" asp-for="@Model.InviteMail">
 
-            <button type="submit" class="btn">Send invite</button>
+            <input type="submit" class="btn">Send invite</input>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
     </div>
