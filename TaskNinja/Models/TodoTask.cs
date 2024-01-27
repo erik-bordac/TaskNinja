@@ -11,7 +11,7 @@ namespace TaskNinja.Models
         public Status Status { get; set; }
         public Priority Priority { get; set; }
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();   // reference navigation
-        public string UserId { get; set; }
+        public required string UserId { get; set; }
         public User User { get; set; } = null!;   // reference navigation
         public int? TeamId { get; set; }
         public Team? Team { get; set; } // reference navigation

@@ -39,7 +39,9 @@ namespace TaskNinja.Pages.TeamsManager
                 return Page();
             }
 
-            var user = await _userService.GetUserById(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = await _userService.GetUserById(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
+            if (user == null) return Unauthorized();
+
             this.Team.Members.Add(user);
 
             _context.Team.Add(Team);

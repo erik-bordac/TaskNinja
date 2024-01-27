@@ -9,7 +9,7 @@ namespace TaskNinja.Pages.TeamsManager
     public class IndexModel : PageModel
     {
         [BindProperty]
-        public IEnumerable<Team> MyTeams { get; set; }
+        public IEnumerable<Team> MyTeams { get; set; } = null!;
         ITeamsService _teamsService;
 
         public IndexModel(ITeamsService teamsService)
@@ -19,7 +19,7 @@ namespace TaskNinja.Pages.TeamsManager
 
         public void OnGet()
         {
-            MyTeams = _teamsService.GetTeamsByMember(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
+            MyTeams = _teamsService.GetTeamsByMember(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "");
         }
     }
 }

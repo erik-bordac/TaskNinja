@@ -28,7 +28,7 @@ namespace TaskNinja.Services
             return await _db.Team.FirstAsync(t=> t.Id == id);
         }
 
-        public async Task<IEnumerable<Team>> GetTeamsByMember(string userId)
+        public IEnumerable<Team> GetTeamsByMember(string userId)
         {
             //var l = await _db.Team.ToListAsync();
             return _db.Team.Include(x => x.Members).Where(x => x.Members.Select(m => m.Id).Contains(userId));

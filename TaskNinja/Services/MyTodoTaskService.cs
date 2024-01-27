@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using TaskNinja.Models;
 using TaskNinja.Services.Interfaces;
 
@@ -52,10 +53,11 @@ namespace TaskNinja.Services
             if (t is not null)
             {
                 t = newTask;
+                await _db.SaveChangesAsync();
+                return t;
             }
 
-            await _db.SaveChangesAsync();
-            return t;
+            throw new KeyNotFoundException();
         }
     }
 }

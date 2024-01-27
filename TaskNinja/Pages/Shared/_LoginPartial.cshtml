@@ -1,5 +1,5 @@
 ﻿<div class="align-content-end">
-    @if (User.Identity.IsAuthenticated)
+    @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <div class="d-flex">
             <label class="text-light">@User.Identity.Name</label>

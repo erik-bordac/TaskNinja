@@ -5,20 +5,20 @@
     @{
         var task = Model.Task;
         string style = "";
-        if (task.Status == Models.Status.Completed) style = "success";
-        if (task.Status == Models.Status.InProgress) style = "warning";
-        if (task.Status == Models.Status.NotStarted) style = "default";
+        if (task?.Status == Models.Status.Completed) style = "success";
+        if (task?.Status == Models.Status.InProgress) style = "warning";
+        if (task?.Status == Models.Status.NotStarted) style = "default";
     }
     <div class="row justify-content-between bg-@style">
         <div class="col-4">
-            <h1>@Model.Task.Name</h1>
+            <h1>@Model.Task?.Name</h1>
         </div>
         <div class="col-1 m-2 row justify-content-center my-auto">
             @if (Model.IsAuthor())
             {
                 <form method="post" asp-page-handler="Delete" class="w-100 h-100">
                     <input type="image" src="~/trash3-fill.svg" class="h-75 w-75" asp-asp-page-handler="Delete"></input>
-                    <input type="hidden" name="id" value="@task.ID"/>
+                    <input type="hidden" name="id" value="@task?.ID"/>
                 </form>
             }
         </div>
@@ -28,23 +28,23 @@
         <div class="mt-4 mb-4 w-25">
             <div class="row">
                 <label class="col-6">Author:</label>
-                <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.UserNameFromId(Model.Task.UserId)</label>
+                <label class="col-6 @((task?.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.UserNameFromId(Model?.Task?.UserId ?? "")</label>
             </div>
             <div class="row">
                 <label class="col-6">Priority:</label>
-                <label class="col-6 @((task.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model.Task.Priority</label>
+                <label class="col-6 @((task?.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model?.Task?.Priority</label>
             </div>
             <div class="row">
                 <label class="col-6">Task Created:</label>
-                <label class="col-6">@Model.Task.CreatedDate</label>
+                <label class="col-6">@Model?.Task?.CreatedDate</label>
             </div>
             <div class="row">
                 <label class="col-6">Task Due:</label>
-                <label class="col-6">@Model.Task.DueDate</label>
+                <label class="col-6">@Model?.Task?.DueDate</label>
             </div>
             <div class="row">
                 <label class="col-6">Task Status:</label>
-                <label class="col-6">@Model.Task.Status</label>
+                <label class="col-6">@Model?.Task?.Status</label>
             </div>
         </div>
         <div class="mt-4 mb-4 w-25">
@@ -58,14 +58,14 @@
                     }
                 </select>
                 <input type="submit" value="Submit"/>
-                <input type="hidden" name="id" value="@task.ID"/>
+                <input type="hidden" name="id" value="@task?.ID"/>
             </div>
         </form>
         </div>
     </div>
 
     <div class="row bg-light">
-        <textarea rows="8"disabled="disabled" spellcheck="false">@Model.Task.Description</textarea>
+        <textarea rows="8"disabled="disabled" spellcheck="false">@Model?.Task?.Description</textarea>
     </div>
 
     <div class="border-top mt-4"></div>
@@ -75,7 +75,7 @@
         <form method="post" asp-page-handler="Comment" class="row w-100">
             <textarea clas="w-50" rows="4" asp-for="IM.CommentText"></textarea>
             <input type="submit" value="Post Comment" class="mt-1"/>
-            <input type="hidden" name="id" value="@task.ID"/>
+            <input type="hidden" name="id" value="@task?.ID"/>
             <span asp-asp-validation-for="IM.CommentText" class="text-danger"></span>
         </form>
     </div>

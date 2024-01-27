@@ -10,7 +10,7 @@ namespace TaskNinja.Pages.TeamsManager
     public class TeamDetailsModel : PageModel
     {
         [BindProperty]
-        public Team Team { get; set; }
+        public Team Team { get; set; } = null!;
 
         [BindProperty]
         public List<TodoTask> TeamTasks { get; set; } = new();

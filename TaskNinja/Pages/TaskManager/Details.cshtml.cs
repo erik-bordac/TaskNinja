@@ -23,7 +23,7 @@ namespace TaskNinja.Pages.TaskManager
         public Status Action { get; set; }
 
         [BindProperty]
-        public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; } = new();
 
         public DetailsModel(ITodoTaskService taskService, ICommentService commentService, IUserService userService)
         {
@@ -67,12 +67,14 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnPostComment(int id)
         {
-            if (!String.IsNullOrEmpty(IM.CommentText) && User.Identity.IsAuthenticated)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var taskId = Task?.ID;
+            if (!String.IsNullOrEmpty(IM.CommentText) && userId is not null && taskId is not null)
             {
                 _commentService.CreateComment(new Comment { Content = IM.CommentText, 
-                    TodoTaskID = Task.ID, 
+                    TodoTaskID = (int)taskId,
                     CreatedDate = DateTime.Now,
-                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)});
+                    UserId = userId});
             }
 
             return RedirectToPage("/TaskManager/Details", new { id = id });
@@ -86,7 +88,7 @@ namespace TaskNinja.Pages.TaskManager
 
         public bool IsAuthor()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier) == Task.UserId;
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) == Task?.UserId;
         }
 
         private void loadPage(int id)
@@ -98,7 +100,7 @@ namespace TaskNinja.Pages.TaskManager
         public class InputModel
         {
             [BindProperty, Required]
-            public string CommentText { get; set; }
+            public string CommentText { get; set; } = "";
         }
     }
 }

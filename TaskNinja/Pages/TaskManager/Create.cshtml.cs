@@ -24,7 +24,7 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnGet()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return Unauthorized();
             }
@@ -41,17 +41,19 @@ namespace TaskNinja.Pages.TaskManager
             {
                 return Page();
             }
-
-            await _context.CreateAsync(new TodoTask
-            {
-                Name = InputModel.Name,
-                Description = InputModel.Description,
-                CreatedDate = DateTime.Now,
-                DueDate = InputModel.DueDate,
-                Priority = InputModel.Priority,
-                Status = Models.Status.NotStarted,
-                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-            });
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null)
+                await _context.CreateAsync(new TodoTask
+                {
+                    Name = InputModel.Name,
+                    Description = InputModel.Description,
+                    CreatedDate = DateTime.Now,
+                    DueDate = InputModel.DueDate,
+                    Priority = InputModel.Priority,
+                    Status = Models.Status.NotStarted,
+                    UserId = userId
+                });
 
             return RedirectToPage("./Index");
         }
