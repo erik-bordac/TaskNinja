@@ -34,5 +34,26 @@ namespace TaskNinja.Services
             return _db.Team.Include(x => x.Members).Where(x => x.Members.Select(m => m.Id).Contains(userId));
             //return l.Where(x => x.Members.All(m => m.Id == userId));
         }
+
+        public async Task<Team> AddUserToTeam(string userId, int teamId)
+        {
+            // Retrieve the user and team from the database
+            var user = await _db.Users.FindAsync(userId);
+            var team = await _db.Team.FindAsync(teamId);
+
+            // Check if user or team is null, handle accordingly
+            if (user == null || team == null)
+            {
+                // Handle the case where user or team is not found
+                return null;
+            }
+
+            // Add user to the team and update the database
+            team.Members.Add(user);
+            await _db.SaveChangesAsync();
+
+            // Return the updated team
+            return team;
+        }
     }
 }

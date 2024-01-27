@@ -66,10 +66,17 @@ namespace TaskNinja.Pages.TeamsManager
             TeamTasks = await _todoTaskService.GetTasksByTeam(Team.Id);
         }
 
-        public void OnPost()
+        public async Task<IActionResult> OnPostAsync(int teamId)
         {
-            // send invite
-            var x = InviteMail;
+            var user = await _userService.GetUserByMail(InviteMail);
+
+            if (user is not null)
+            {
+                // send invite
+                await _teamsService.AddUserToTeam(user.Id, teamId);
+            }
+
+            return RedirectToPage("/TeamsManager/TeamDetails", new { teamId = teamId });
         }
     }
 }

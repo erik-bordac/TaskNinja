@@ -46,6 +46,7 @@
             <input placeholder="Enter Email" asp-for="@Model.InviteMail">
 
             <input type="submit" class="btn">Send invite</input>
+            <input type="hidden" name="teamId" value="@Model.Team.Id" />
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
     </div>
