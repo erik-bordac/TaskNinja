@@ -18,6 +18,10 @@ namespace TaskNinja.Pages.TeamsManager
         [BindProperty]
         public List<User> TeamMembers { get; set; } = new();
 
+        public string SortBy { get; set; }
+        public string SortOrder { get; set; }
+        public string HideCompleted { get; set; }
+
         ITeamsService _teamsService;
         IUserService _userService;
         ITodoTaskService _todoTaskService;
@@ -29,8 +33,14 @@ namespace TaskNinja.Pages.TeamsManager
             _todoTaskService = todoTaskService;
         }
 
-        public async void OnGet(int teamId)
+        public async void OnGet(int teamId, string sortBy, string sortOrder, string hideCompleted)
         {
+            var x = Url.Page(null);
+            // params for view component
+            SortBy = sortBy;
+            SortOrder = sortOrder;
+            HideCompleted = hideCompleted;
+
             // get teams
             Team = await _teamsService.GetTeamById(teamId);
 

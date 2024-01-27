@@ -1,62 +1,13 @@
 ﻿@page
+@using TaskNinja.ViewComponents
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="container mt-4">
-    <div class="d-flex flex-row-reverse">
-        <a class="btn btn-secondary" asp-page="./Index" asp-route-sortBy="@Model.SortBy" asp-route-sortOrder="@Model.SortOrder" asp-route-hideCompleted="@Model.SwitchHideCompleted()">@(Model.HideCompleted == "true" ? "Show Completed" : "Hide Completed")</a>
-    </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>
-                    <a asp-page="./Index" asp-route-sortBy="ID" asp-route-sortOrder="@Model.SwitchSortOrder("ID")">ID</a>
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortBy="Name" asp-route-sortOrder="@Model.SwitchSortOrder("Name")">Name</a>
-                </th>
-                <th style="max-width: 150px;">
-                    <a asp-page="./Index" asp-route-sortBy="Description" asp-route-sortOrder="@Model.SwitchSortOrder("Description")">Description</a>
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortBy="CreatedDate" asp-route-sortOrder="@Model.SwitchSortOrder("CreatedDate")">Created Date</a>
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortBy="DueDate" asp-route-sortOrder="@Model.SwitchSortOrder("DueDate")">Due Date</a>
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortBy="Priority" asp-route-sortOrder="@Model.SwitchSortOrder("Priority")">Priority</a>
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortBy="Status" asp-route-sortOrder="@Model.SwitchSortOrder("Status")">Status</a>
-                </th>
+    @await Component.InvokeAsync("Tasks", new ComponentParams(Model.Tasks, Model.SortBy, Model.SortOrder, Model.HideCompleted))
 
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (var task in Model.Tasks)
-                {
-                    if (task.Status == Models.Status.Completed && Model.HideCompleted == "true") continue;
-                    string style = "";
-                    if (task.Status == Models.Status.Completed) style = "success";
-                    if (task.Status == Models.Status.InProgress) style = "warning";
-                    if (task.Status == Models.Status.NotStarted) style = "default";
-                    <tr class="table-@style" onclick="location.href = '@Url.Page("./Details", values: new { id = task.ID })'">
-                        <th scope="row">@task.ID</th>
-                        <td>@task.Name</td>
-                        <td>@task.Description.Substring(0, Math.Min(30, task.Description.Length-1))</td>
-                        <td>@task.CreatedDate</td>
-                        <td class="@(task.DueDate < DateTime.Now ? "text-danger" : "")">@task.DueDate</td>
-                        <td class="@((task.Priority == Models.Priority.High && task.Status != Models.Status.Completed) ? "bg-danger" : "")">@task.Priority</td>
-                        <td>@task.Status</td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
     <div class="d-flex justify-content-center">
         <a class="btn btn-primary" asp-page="./Create">Create New Task</a>
     </div>
