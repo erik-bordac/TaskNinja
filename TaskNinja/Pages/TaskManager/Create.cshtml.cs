@@ -24,7 +24,7 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnGet()
         {
-            if (User?.Identity?.IsAuthenticated ?? false)
+            if (!User?.Identity?.IsAuthenticated ?? true)
             {
                 return Unauthorized();
             }
