@@ -17,6 +17,7 @@ namespace TaskNinja.Services
             modelBuilder.ApplyConfiguration(new TodoTaskConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new TeamInviteConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

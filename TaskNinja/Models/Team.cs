@@ -1,4 +1,6 @@
-﻿namespace TaskNinja.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace TaskNinja.Models
 {
     public class Team
     {

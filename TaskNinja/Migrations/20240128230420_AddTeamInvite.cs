@@ -11,11 +11,24 @@ namespace TaskNinja.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "RecipientId",
+                table: "AspNetUsers",
+                type: "INTEGER",
+                nullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "SenderId",
+                table: "AspNetUsers",
+                type: "INTEGER",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "TeamInvites",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SenderId = table.Column<string>(type: "TEXT", nullable: false),
                     RecipientId = table.Column<string>(type: "TEXT", nullable: false),
                     TeamId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -47,29 +60,74 @@ namespace TaskNinja.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_RecipientId",
+                table: "AspNetUsers",
+                column: "RecipientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_SenderId",
+                table: "AspNetUsers",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TeamInvites_RecipientId",
                 table: "TeamInvites",
-                column: "RecipientId",
-                unique: true);
+                column: "RecipientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamInvites_SenderId",
                 table: "TeamInvites",
-                column: "SenderId",
-                unique: true);
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamInvites_TeamId",
                 table: "TeamInvites",
-                column: "TeamId",
-                unique: true);
+                column: "TeamId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_TeamInvites_RecipientId",
+                table: "AspNetUsers",
+                column: "RecipientId",
+                principalTable: "TeamInvites",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_TeamInvites_SenderId",
+                table: "AspNetUsers",
+                column: "SenderId",
+                principalTable: "TeamInvites",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUsers_TeamInvites_RecipientId",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUsers_TeamInvites_SenderId",
+                table: "AspNetUsers");
+
             migrationBuilder.DropTable(
                 name: "TeamInvites");
+
+            migrationBuilder.DropIndex(
+                name: "IX_AspNetUsers_RecipientId",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropIndex(
+                name: "IX_AspNetUsers_SenderId",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "RecipientId",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "SenderId",
+                table: "AspNetUsers");
         }
     }
 }

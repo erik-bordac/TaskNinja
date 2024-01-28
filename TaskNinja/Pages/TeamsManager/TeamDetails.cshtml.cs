@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Security.Claims;
 using TaskNinja.Models;
 using TaskNinja.Pages.TaskManager;
 using TaskNinja.Services.Interfaces;
@@ -30,12 +31,14 @@ namespace TaskNinja.Pages.TeamsManager
         ITeamsService _teamsService;
         IUserService _userService;
         ITodoTaskService _todoTaskService;
+        ITeamInviteService _teamInviteService;
 
-        public TeamDetailsModel(ITeamsService teamsService, IUserService userService, ITodoTaskService todoTaskService)
+        public TeamDetailsModel(ITeamsService teamsService, IUserService userService, ITodoTaskService todoTaskService, ITeamInviteService teamInviteService)
         {
             _teamsService = teamsService;
             _userService = userService;
             _todoTaskService = todoTaskService;
+            _teamInviteService = teamInviteService;
         }
 
         public class InputModel
@@ -68,12 +71,13 @@ namespace TaskNinja.Pages.TeamsManager
 
         public async Task<IActionResult> OnPostAsync(int teamId)
         {
-            var user = await _userService.GetUserByMail(InviteMail);
+            var recipient = await _userService.GetUserByMail(InviteMail);
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (user is not null)
+            if (recipient is not null)
             {
                 // send invite
-                await _teamsService.AddUserToTeam(user.Id, teamId);
+                _teamInviteService.AddInvitation(user, recipient.Id, teamId);
             }
 
             return RedirectToPage("/TeamsManager/TeamDetails", new { teamId = teamId });

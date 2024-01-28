@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskNinja.Models
 {
+    [Index(nameof(SenderId), IsUnique = false)]
+    [Index(nameof(RecipientId), IsUnique = false)]
+    [Index(nameof(TeamId), IsUnique = false)]
     public class TeamInvite
     {
         public int Id { get; set; }

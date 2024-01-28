@@ -221,14 +221,11 @@ namespace TaskNinja.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipientId")
-                        .IsUnique();
+                    b.HasIndex("RecipientId");
 
-                    b.HasIndex("SenderId")
-                        .IsUnique();
+                    b.HasIndex("SenderId");
 
-                    b.HasIndex("TeamId")
-                        .IsUnique();
+                    b.HasIndex("TeamId");
 
                     b.ToTable("TeamInvites");
                 });
@@ -321,8 +318,14 @@ namespace TaskNinja.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("RecipientId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("SenderId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
@@ -343,6 +346,10 @@ namespace TaskNinja.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -474,6 +481,21 @@ namespace TaskNinja.Migrations
                     b.Navigation("Team");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TaskNinja.Models.User", b =>
+                {
+                    b.HasOne("TaskNinja.Models.TeamInvite", "Recipient")
+                        .WithMany()
+                        .HasForeignKey("RecipientId");
+
+                    b.HasOne("TaskNinja.Models.TeamInvite", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("TeamUser", b =>
