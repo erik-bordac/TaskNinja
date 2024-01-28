@@ -16,6 +16,7 @@ namespace TaskNinja.Services
         {
             modelBuilder.ApplyConfiguration(new TodoTaskConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new TeamInviteConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -23,5 +24,6 @@ namespace TaskNinja.Services
         public DbSet<TodoTask> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<TaskNinja.Models.Team> Team { get; set; } = default!;
+        public DbSet<TeamInvite> TeamInvites { get; set; }
     }
 }

@@ -6,5 +6,6 @@
         public required string Name { get; set; }
         public List<User> Members { get; } = [];
         public ICollection<TodoTask> Tasks { get; set; } = new List<TodoTask>();    // reference navigation 
+        public TeamInvite? TeamInvite { get; set; } // reference navigation
     }
 }
