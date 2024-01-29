@@ -55,5 +55,19 @@ namespace TaskNinja.Services
             // Return the updated team
             return team;
         }
+        
+        public async void DeleteUser(string userId, int teamId)
+        {
+            var team = await _db.Team.Include(x => x.Members).FirstOrDefaultAsync(x => x.Id == teamId);
+
+            var userTeam = team?.Members.FirstOrDefault(x => x.Id == userId);
+
+            if (userTeam is not null)
+            {
+                team.Members.Remove(userTeam);
+            }
+
+            await _db.SaveChangesAsync();
+        }
     }
 }

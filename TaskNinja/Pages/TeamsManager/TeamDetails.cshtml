@@ -25,7 +25,11 @@
                                 <p class="m-0">@member.Email</p>
                             </div>
                             <div class="col-sm d-flex justify-content-center align-items-end p-0">
-                                <button>Remove</button>
+                                <form method="post" asp-page-handler="RemoveMember">
+                                    <input type="hidden" name="userId" value="@member.Id" />
+                                    <input type="hidden" name="teamId" value="@Model.Team.Id" />
+                                    <button type="submit">Remove</button>
+                                </form>
                             </div>
                         </div>
                     </li>

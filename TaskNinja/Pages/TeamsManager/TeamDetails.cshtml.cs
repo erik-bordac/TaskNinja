@@ -82,5 +82,12 @@ namespace TaskNinja.Pages.TeamsManager
 
             return RedirectToPage("/TeamsManager/TeamDetails", new { teamId = teamId });
         }
+
+        public IActionResult OnPostRemoveMember(string userId, int teamId)
+        {
+            _teamsService.DeleteUser(userId, teamId);
+
+            return RedirectToPage("/TeamsManager/Index");
+        }
     }
 }
