@@ -3,21 +3,33 @@
 @{
 }
 
-<ul>
-    @foreach (var inv in Model.TeamInvites)
-    {
-        <li>
-            <div class="d-flex row w-25">
-                <p class="col-sm-4">Team: @inv.TeamId</p>
-                <form method="post" asp-page-handler="Accept">
-                    <input type="hidden" name="id" value="@inv.Id"/>
-                    <button type="submit" class="col-sm-4 btn btn-primary" >Accept</button>
-                </form>
-                <form method="post" asp-page-handler="Decline">
-                    <input type="hidden" name="id" value="@inv.Id"/>
-                    <button type="submit" class="col-sm-4 btn btn-primary" >Decline</button>
-                </form>
-            </div>
-        </li>
-    }
-</ul>
+<div class="flex-column">
+    <h1 class="text-center">Invites</h1>
+    <ul class="w-50 mx-auto">
+        @foreach (var inv in Model.TeamInvites)
+        {
+            <li class="text-center">
+                <div class="d-flex row w-100 justify-content-center">
+                    <div class="col-3">
+                        <p>From: @Model.GetMailFromId(inv.SenderId)</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Team: @Model.GetNameFromTeam(inv.TeamId)</p>
+                    </div>
+                    <div class="col-2">
+                        <form method="post" asp-page-handler="Accept">
+                            <input type="hidden" name="id" value="@inv.Id"/>
+                            <button type="submit" class="col-sm-4 btn btn-primary w-100">Accept</button>
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <form method="post" asp-page-handler="Decline">
+                            <input type="hidden" name="id" value="@inv.Id"/>
+                            <button type="submit" class="col-sm-4 btn btn-primary w-100">Decline</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

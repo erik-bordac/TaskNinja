@@ -12,7 +12,7 @@
 
         </div>
         <div class="col-md-2 h-75 border border-5 border-secondary rounded-3" style="background-color: #4F4F4F;">
-            <h2>Members</h2>
+            <h2 class="text-center">Members</h2>
             <ul class="pl-1">
                 @foreach(var member in Model.TeamMembers)
                 {
@@ -28,7 +28,7 @@
                                 <form method="post" asp-page-handler="RemoveMember">
                                     <input type="hidden" name="userId" value="@member.Id" />
                                     <input type="hidden" name="teamId" value="@Model.Team.Id" />
-                                    <button type="submit">Remove</button>
+                                    <button type="submit" class="btn-danger">Remove</button>
                                 </form>
                             </div>
                         </div>

@@ -6,19 +6,24 @@
 <div class="align-content-end">
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
-        <div class="d-flex">
+        <div class="d-flex justify-content-center align-items-center">
             @{var invites = await s.GetPendingInvitationsByRecipient(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (invites.Count > 0)
             {
-                <a asp-page="/TeamInvites">Requests (@invites.Count)</a>
+                <a asp-page="/TeamInvites" style="margin-right: 15px">
+                    <div class="d-flex row align-content-ceter justify-content-center" style="min-width: 60px">
+                        <img src="~/bell-fill.svg" alt="bell_icon" class="col-6 m-0 p-0"/>
+                        <label class="col-6 m-0 p-0">(@invites.Count)</label>
+                    </div>
+                </a>
             }}
 
-            <label class="text-light">@User.Identity.Name</label>
-            <a asp-area="Identity" asp-page="/Account/Logout">Sign out</a>
+            <label class="text-light m-2">@User.Identity.Name</label>
+            <a asp-area="Identity" asp-page="/Account/Logout" class="btn btn-default btn-info">Log out</a>
         </div>
     }
     else
     {
-        <a asp-area="Identity" asp-page="/Account/Login">Sign in</a>
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-default btn-info">Log in</a>
     }
 </div>

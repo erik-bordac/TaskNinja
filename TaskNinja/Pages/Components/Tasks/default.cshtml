@@ -10,25 +10,25 @@
     <thead>
         <tr>
             <th>
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="ID" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("ID")">ID</a>
+                <a class="text-info" asp-page="@Url.Page("OnGet")" asp-route-sortBy="ID" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("ID")">ID</a>
             </th>
             <th>
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="Name" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Name")">Name</a>
+                <a class="text-info"asp-page="@Url.Page("OnGet")" asp-route-sortBy="Name" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Name")">Name</a>
             </th>
             <th style="max-width: 150px;">
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="Description" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Description")">Description</a>
+                <a class="text-info"asp-page="@Url.Page("OnGet")" asp-route-sortBy="Description" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Description")">Description</a>
             </th>
             <th>
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="CreatedDate" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("CreatedDate")">Created Date</a>
+                <a class="text-info"asp-page="@Url.Page("OnGet")" asp-route-sortBy="CreatedDate" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("CreatedDate")">Created Date</a>
             </th>
             <th>
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="DueDate" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("DueDate")">Due Date</a>
+                <a class="text-info"asp-page="@Url.Page("OnGet")" asp-route-sortBy="DueDate" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("DueDate")">Due Date</a>
             </th>
             <th>
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="Priority" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Priority")">Priority</a>
+                <a class="text-info"asp-page="@Url.Page("OnGet")" asp-route-sortBy="Priority" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Priority")">Priority</a>
             </th>
             <th>
-                <a asp-page="@Url.Page("OnGet")" asp-route-sortBy="Status" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Status")">Status</a>
+                <a class="text-info"asp-page="@Url.Page("OnGet")" asp-route-sortBy="Status" asp-route-teamId="@Model.TeamId" asp-route-sortOrder="@Model.SwitchSortOrder("Status")">Status</a>
             </th>
         </tr>
     </thead>
@@ -38,7 +38,7 @@
             {
                 if (task.Status == Models.Status.Completed && Model.HideCompleted == "true") continue;
                 string style = "";
-                if (task.Status == Models.Status.Completed) style = "success";
+                if (task.Status == Models.Status.Completed) style = "info";
                 if (task.Status == Models.Status.InProgress) style = "warning";
                 if (task.Status == Models.Status.NotStarted) style = "dark";
                 <tr class="table-@style" onclick="location.href = '@Url.Page("/TaskManager/Details", values: new { id = task.ID })'">

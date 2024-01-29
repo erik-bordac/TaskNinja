@@ -4,49 +4,48 @@
 @{
     ViewData["Title"] = "Create";
 }
+<div class="container" style="background-color: #4F4F4F;">
+    <h1 class="text-center">Create</h1>
 
-<h1>Create</h1>
-
-<h4>TodoTask</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="InputModel.Name" class="control-label"></label>
-                <input asp-for="InputModel.Name" class="form-control" />
-                <span asp-validation-for="InputModel.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InputModel.Description" class="control-label"></label>
-                <textarea asp-for="InputModel.Description" class="form-control" placeholder="Enter Description"></textarea>
-                <span asp-validation-for="InputModel.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InputModel.DueDate" class="control-label"></label>
-                <input type="date" asp-for="InputModel.DueDate" class="form-control" />
-                <span asp-validation-for="InputModel.DueDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InputModel.DueTime" class="control-label"></label>
-                <input type="time" asp-for="InputModel.DueTime" class="form-control" value="00:00"/>
-                <span asp-validation-for="InputModel.DueTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InputModel.Priority" class="control-label"></label>
-                <select asp-for="InputModel.Priority" class="form-control">
-                    @foreach(var item in Enum.GetValues(typeof(Models.Priority)))
-                    {
-                        <option value="@item">@item</option>
-                    }
-                </select>
-                <span asp-validation-for="InputModel.Priority" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="row justify-content-center">
+        <div class="col-md-4 mx-auto">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="InputModel.Name" class="control-label"></label>
+                    <input asp-for="InputModel.Name" class="form-control" />
+                    <span asp-validation-for="InputModel.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.Description" class="control-label"></label>
+                    <textarea asp-for="InputModel.Description" class="form-control" placeholder="Enter Description"></textarea>
+                    <span asp-validation-for="InputModel.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.DueDate" class="control-label"></label>
+                    <input type="date" asp-for="InputModel.DueDate" class="form-control" />
+                    <span asp-validation-for="InputModel.DueDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.DueTime" class="control-label"></label>
+                    <input type="time" asp-for="InputModel.DueTime" class="form-control" value="00:00"/>
+                    <span asp-validation-for="InputModel.DueTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InputModel.Priority" class="control-label"></label>
+                    <select asp-for="InputModel.Priority" class="form-control">
+                        @foreach(var item in Enum.GetValues(typeof(Models.Priority)))
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                    <span asp-validation-for="InputModel.Priority" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" style="font-size: 1.2rem; margin-bottom: 10px;"/>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

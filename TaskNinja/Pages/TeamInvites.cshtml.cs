@@ -10,14 +10,16 @@ namespace TaskNinja.Pages
     {
         ITeamInviteService _teamInviteService;
         ITeamsService _teamsService;
+        IUserService _userService;
 
         [BindProperty]
         public List<TeamInvite> TeamInvites { get; set; }
 
-        public TeamInvitesModel(ITeamInviteService teamInviteService, ITeamsService teamsService)
+        public TeamInvitesModel(ITeamInviteService teamInviteService, ITeamsService teamsService, IUserService userService)
         {
             _teamInviteService = teamInviteService;
             _teamsService = teamsService;
+            _userService = userService;
         }
 
         public async void OnGet()
@@ -42,6 +44,17 @@ namespace TaskNinja.Pages
             _teamInviteService.UpdateInvitation(inv);
 
             return RedirectToPage("TeamInvites");
+        }
+
+        public string GetMailFromId(string id)
+        {
+            var user = _userService.GetUserById(id).Result;
+            return user.Email;
+        }
+        public string GetNameFromTeam(int  id)
+        {
+            var team = _teamsService.GetTeamById(id).Result;
+            return team.Name;
         }
     }
 }
