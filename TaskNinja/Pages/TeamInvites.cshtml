@@ -1,0 +1,17 @@
+﻿@page
+@model TaskNinja.Pages.TeamInvitesModel
+@{
+}
+
+<ul>
+    @foreach (var inv in Model.TeamInvites)
+    {
+        <li>
+            <div class="d-flex row w-25">
+                <p class="col-sm-4">Team: @inv.TeamId</p>
+                <button class="col-sm-4">Accept</button>
+                <button class="col-sm-4">Decline</button>
+            </div>
+        </li>
+    }
+</ul>

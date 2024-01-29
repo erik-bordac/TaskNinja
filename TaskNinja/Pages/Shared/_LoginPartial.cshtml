@@ -1,7 +1,18 @@
-﻿<div class="align-content-end">
+﻿@using System.Security.Claims
+@using TaskNinja.Services.Interfaces
+
+@inject ITeamInviteService s
+
+<div class="align-content-end">
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <div class="d-flex">
+            @{var invites = await s.GetPendingInvitationsByRecipient(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (invites.Count > 0)
+            {
+                <a asp-page="/TeamInvites">Requests (@invites.Count)</a>
+            }}
+
             <label class="text-light">@User.Identity.Name</label>
             <a asp-area="Identity" asp-page="/Account/Logout">Sign out</a>
         </div>

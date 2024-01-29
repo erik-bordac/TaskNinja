@@ -1,4 +1,5 @@
-﻿using TaskNinja.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskNinja.Models;
 using TaskNinja.Services.Interfaces;
 
 namespace TaskNinja.Services
@@ -23,6 +24,11 @@ namespace TaskNinja.Services
             });
 
             _db.SaveChangesAsync();
+        }
+
+        public Task<List<TeamInvite>> GetPendingInvitationsByRecipient(string userId)
+        {
+             return _db.TeamInvites.Where(i => i.RecipientId == userId && i.Status == InviteStatus.Pending).ToListAsync();
         }
     }
 }
