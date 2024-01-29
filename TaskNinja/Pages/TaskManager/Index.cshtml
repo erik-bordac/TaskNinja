@@ -5,10 +5,12 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container mt-4">
-    @await Component.InvokeAsync("Tasks", new ComponentParams(Model.Tasks, Model.SortBy, Model.SortOrder, Model.HideCompleted))
+<div class="container" style="background-color: #4F4F4F;">
+    <div class="container mt-4 p-3">
+        @await Component.InvokeAsync("Tasks", new ComponentParams(Model.Tasks, Model.SortBy, Model.SortOrder, Model.HideCompleted))
 
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-primary" asp-page="./Create">Create New Task</a>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary" asp-page="./Create">Create New Task</a>
+        </div>
     </div>
 </div>

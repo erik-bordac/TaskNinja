@@ -4,43 +4,11 @@
     ViewData["Title"] = "Home page";
 }
 
-@* 
-<div class="flex-row m-3 d-flex justify-content-center">
-    <a asp-page="/TaskManager/Index" class="link-primary">
-    <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
-            <div class="card-body" style="
-              background: linear-gradient(
-                45deg,
-                hsla(168, 85%, 52%, 0.5),
-                hsla(263, 88%, 45%, 0.5) 100%
-              );">
-            
-                <h4 class="card-title">My Tasks</h4>
-                <img src="~/card-checklist.svg" alt="checklist image" width="80%" class="m-3 text-primary"/>
-            </div>
-    </div>
-    </a>
-
-    <a asp-page="/TaskManager/Index" class="link-primary">
-        <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
-            <div class="card-body" style="
-              background: linear-gradient(
-                45deg,
-                hsla(263, 88%, 45%, 0.5),
-                hsla(168, 85%, 52%, 0.5) 100%
-              );">
-                <h4 class="card-title">My Teams</h4>
-                <img src="~/people-fill.svg" alt="people image" width="80%" class="m-3"/>
-            </div>
-        </div>
-    </a>
-</div>
- *@
-
-<div class="container">
+<div class="container" style="background-color: #4F4F4F">
+    <h1 class="text-center">Dashboard</h1>
     <div class="row justify-content-center">
-        <div class="col-md-5 d-flex justify-content-center">
-                <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
+        <div class="col-md-3 d-flex justify-content-center">
+                <div class="card text-white bg-primary m-3 hover-anim" style="width: 13rem;">
                     <a asp-page="/TaskManager/Index" class="text-white link-underline-primary">
                         <div class="card-body" style="
                           background: linear-gradient(
@@ -55,8 +23,8 @@
                     </a>
                 </div>
         </div>
-        <div class="col-md-5 d-flex justify-content-center">
-                <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
+        <div class="col-md-3 d-flex justify-content-center">
+                <div class="card text-white bg-primary m-3 hover-anim" style="width: 13rem;">
                 <a asp-page="/TeamsManager/Index" class="text-white link-underline-primary">
                         <div class="card-body" style="
                           background: linear-gradient(
@@ -66,7 +34,7 @@
                           );">
                         
                             <h4 class="card-title">My Teams</h4>
-                            <img src="~/people-fill.svg" alt="checklist image" width="80%" class="m-3 text-primary"/>
+                            <img src="~/people-fill.svg" alt="checklist image" width="80%" class="m-3 text-primary" />
                         </div>
                     </a>
                 </div>

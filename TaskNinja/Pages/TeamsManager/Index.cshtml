@@ -3,14 +3,14 @@
 @{
 }
 
-<h1>My Teams</h1>
 
-<div class="container">
+<div class="container" style="background-color: #4F4F4F">
+    <h1 class="text-center">My Teams</h>
     <div class="row justify-content-center">
     @foreach(var team in Model.MyTeams)
     {
     <div class="col-md-3 d-flex justify-content-center">
-        <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
+        <div class="card text-white bg-primary m-3 hover-anim" style="width: 13rem;">
             <a asp-page="./TeamDetails" asp-route-teamId="@team.Id" class="text-white link-underline-primary">
                 <div class="card-body" style="
                       background: linear-gradient(
@@ -20,7 +20,7 @@
                       );">
 
                     <h4 class="card-title">@team.Name</h4>
-                    <img src="~/card-checklist.svg" alt="checklist image" width="80%" class="m-3 text-primary" />
+                    <img src="~/people-fill.svg" alt="checklist image" width="80%" class="m-3 text-primary" />
                 </div>
             </a>
         </div>
@@ -29,13 +29,13 @@
 
 @*         Create Team btn *@        
         <div class="col-md-3 d-flex justify-content-center">
-            <div class="card text-white bg-primary m-3 hover-anim" style="width: 20rem;">
+            <div class="card text-white bg-primary m-3 hover-anim" style="width: 13rem;">
                 <a asp-page="/TeamsManager/Create" class="text-white link-underline-primary">
                     <div class="card-body" style="
                           background: linear-gradient(
                             45deg,
-                            hsla(168, 81%, 82%, 0.50),
-                            hsla(263, 57%, 73%, 0.50) 100%
+                            hsla(168, 85%, 52%, 0.5),
+                            hsla(263, 88%, 45%, 0.5) 100%
                           );">
 
                         <h4 class="card-title">Create Team</h4>

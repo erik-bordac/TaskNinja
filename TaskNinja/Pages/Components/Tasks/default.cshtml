@@ -4,7 +4,7 @@
 @model ComponentParams
 
 <div class="d-flex flex-row-reverse">
-    <a class="btn btn-secondary" asp-page="@Url.Page("OnGet")" asp-route-teamId="@Model.TeamId" asp-route-sortBy="@Model.SortBy" asp-route-sortOrder="@Model.SortOrder" asp-route-hideCompleted="@Model.SwitchHideCompleted()">@(Model.HideCompleted == "true" ? "Show Completed" : "Hide Completed")</a>
+    <a class="btn btn-primary" asp-page="@Url.Page("OnGet")" asp-route-teamId="@Model.TeamId" asp-route-sortBy="@Model.SortBy" asp-route-sortOrder="@Model.SortOrder" asp-route-hideCompleted="@Model.SwitchHideCompleted()">@(Model.HideCompleted == "true" ? "Show Completed" : "Hide Completed")</a>
 </div>
 <table class="table table-hover">
     <thead>
@@ -40,7 +40,7 @@
                 string style = "";
                 if (task.Status == Models.Status.Completed) style = "success";
                 if (task.Status == Models.Status.InProgress) style = "warning";
-                if (task.Status == Models.Status.NotStarted) style = "default";
+                if (task.Status == Models.Status.NotStarted) style = "dark";
                 <tr class="table-@style" onclick="location.href = '@Url.Page("/TaskManager/Details", values: new { id = task.ID })'">
                     <th scope="row">@task.ID</th>
                     <td>@task.Name</td>
