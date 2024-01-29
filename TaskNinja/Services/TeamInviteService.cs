@@ -30,5 +30,16 @@ namespace TaskNinja.Services
         {
              return _db.TeamInvites.Where(i => i.RecipientId == userId && i.Status == InviteStatus.Pending).ToListAsync();
         }
+
+        public async void UpdateInvitation(TeamInvite invitation)
+        {
+            _db.TeamInvites.Update(invitation);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<TeamInvite> GetInvitationByIdAsync(int id)
+        {
+            return await _db.TeamInvites.FirstAsync(i => i.Id == id);
+        }
     }
 }

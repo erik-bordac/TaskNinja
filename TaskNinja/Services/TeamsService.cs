@@ -35,7 +35,7 @@ namespace TaskNinja.Services
             //return l.Where(x => x.Members.All(m => m.Id == userId));
         }
 
-        public async Task<Team> AddUserToTeam(string userId, int teamId)
+        public async Task<Team> AddUserToTeamAsync(string userId, int teamId)
         {
             // Retrieve the user and team from the database
             var user = await _db.Users.FindAsync(userId);

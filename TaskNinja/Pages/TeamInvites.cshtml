@@ -9,8 +9,14 @@
         <li>
             <div class="d-flex row w-25">
                 <p class="col-sm-4">Team: @inv.TeamId</p>
-                <button class="col-sm-4">Accept</button>
-                <button class="col-sm-4">Decline</button>
+                <form method="post" asp-page-handler="Accept">
+                    <input type="hidden" name="id" value="@inv.Id"/>
+                    <button type="submit" class="col-sm-4 btn btn-primary" >Accept</button>
+                </form>
+                <form method="post" asp-page-handler="Decline">
+                    <input type="hidden" name="id" value="@inv.Id"/>
+                    <button type="submit" class="col-sm-4 btn btn-primary" >Decline</button>
+                </form>
             </div>
         </li>
     }
