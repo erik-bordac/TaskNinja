@@ -38,7 +38,7 @@
             {
                 if (task.Status == Models.Status.Completed && Model.HideCompleted == "true") continue;
                 string style = "";
-                if (task.Status == Models.Status.Completed) style = "info";
+                if (task.Status == Models.Status.Completed) style = "primary";
                 if (task.Status == Models.Status.InProgress) style = "warning";
                 if (task.Status == Models.Status.NotStarted) style = "dark";
                 <tr class="table-@style" onclick="location.href = '@Url.Page("/TaskManager/Details", values: new { id = task.ID })'">

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="container" style="background-color: #4F4F4F;">
+<div class="container _bg-light">
     <div class="container mt-4 p-3">
         @await Component.InvokeAsync("Tasks", new ComponentParams(Model.Tasks, Model.SortBy, Model.SortOrder, Model.HideCompleted))
 
