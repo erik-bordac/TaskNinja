@@ -47,7 +47,7 @@ namespace TaskNinja.Pages.TeamsManager
             public string Mail { get; set; }
         }
 
-        public async void OnGet(int teamId, string sortBy, string sortOrder, string hideCompleted)
+        public async Task<IActionResult> OnGet(int teamId, string sortBy, string sortOrder, string hideCompleted)
         {
             var x = Url.Page(null);
             // params for view component
@@ -65,8 +65,14 @@ namespace TaskNinja.Pages.TeamsManager
                 TeamMembers.Add(await _userService.GetUserById(id));
             }
 
+            if (!membersIds.Contains(User.FindFirstValue(ClaimTypes.NameIdentifier))) {
+                return Unauthorized();
+            }
+
             // get tasks
             TeamTasks = await _todoTaskService.GetTasksByTeam(Team.Id);
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int teamId)
@@ -74,10 +80,17 @@ namespace TaskNinja.Pages.TeamsManager
             var recipient = await _userService.GetUserByMail(InviteMail);
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (recipient is not null)
+            var teamMembers = _teamsService.GetMembersIdByTeamId(teamId);
+
+            var invsForRecipient = await _teamInviteService.GetPendingInvitationsByRecipient(recipient.Id);
+                                            //user isnt in the team               // no pending invitations to the same team
+            if (recipient is not null && !teamMembers.Contains(recipient.Id) && (invsForRecipient.Count(x => x.TeamId == teamId) == 0))
             {
                 // send invite
                 _teamInviteService.AddInvitation(user, recipient.Id, teamId);
+            } else
+            {
+                // display error message
             }
 
             return RedirectToPage("/TeamsManager/TeamDetails", new { teamId = teamId });

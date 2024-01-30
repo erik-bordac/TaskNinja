@@ -31,6 +31,7 @@ namespace TaskNinja.Pages
         {
             var inv = await _teamInviteService.GetInvitationByIdAsync(id);
             inv.Status = InviteStatus.Accepted;
+            inv.ClosedDate = DateTime.Now;
             _teamInviteService.UpdateInvitation(inv);
 
             await _teamsService.AddUserToTeamAsync(inv.RecipientId, inv.TeamId);
@@ -41,6 +42,7 @@ namespace TaskNinja.Pages
         {
             var inv = await _teamInviteService.GetInvitationByIdAsync(id);
             inv.Status = InviteStatus.Declined;
+            inv.ClosedDate = DateTime.Now;
             _teamInviteService.UpdateInvitation(inv);
 
             return RedirectToPage("TeamInvites");

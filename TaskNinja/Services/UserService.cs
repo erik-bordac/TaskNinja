@@ -18,9 +18,9 @@ namespace TaskNinja.Services
             return await _db.Users.FirstAsync(x => x.Id == id);
         }
 
-        public async Task<User> GetUserByMail(string mail)
+        public async Task<User?> GetUserByMail(string mail)
         {
-            return await _db.Users.FirstAsync(x => x.Email == mail);
+            return await _db.Users.FirstOrDefaultAsync(x => x.Email == mail);
         }
     }
 }

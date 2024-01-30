@@ -33,6 +33,15 @@
                 <label class="col-6">Author:</label>
                 <label class="col-6">@Model.UserNameFromId(Model?.Task?.UserId ?? "")</label>
             </div>
+            @{
+                if (Model?.Task?.TeamId is not null)
+                {
+                    <div class="row">
+                        <label class="col-6">Team:</label>
+                        <label class="col-6">@Model.TeamNameFromId((int)Model.Task.TeamId)</label>
+                    </div>
+                }
+            }
             <div class="row">
                 <label class="col-6">Priority:</label>
                 <label class="col-6 @((task?.Priority == Models.Priority.High) ? "bg-danger" : "")">@Model?.Task?.Priority</label>

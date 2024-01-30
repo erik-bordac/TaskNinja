@@ -13,6 +13,8 @@ namespace TaskNinja.Pages.TaskManager
         private ITodoTaskService _taskService;
         private ICommentService _commentService;
         private IUserService _userService;
+        private ITeamsService _teamsService;
+
         [BindProperty]
         public InputModel IM { get; set; } = new InputModel();
 
@@ -25,11 +27,12 @@ namespace TaskNinja.Pages.TaskManager
         [BindProperty]
         public List<Comment> Comments { get; set; } = new();
 
-        public DetailsModel(ITodoTaskService taskService, ICommentService commentService, IUserService userService)
+        public DetailsModel(ITodoTaskService taskService, ICommentService commentService, IUserService userService, ITeamsService teamsService)
         {
             _taskService = taskService;
             _commentService = commentService;
             _userService = userService;
+            _teamsService = teamsService;
         }
 
         public IActionResult OnGet(int id)
@@ -84,6 +87,12 @@ namespace TaskNinja.Pages.TaskManager
         {
             var user = _userService.GetUserById(id).Result;
             return user._UserName;
+        }
+
+        public string TeamNameFromId(int id)
+        {
+            var team = _teamsService.GetTeamById(id).Result;
+            return team.Name;
         }
 
         public bool IsAuthor()
