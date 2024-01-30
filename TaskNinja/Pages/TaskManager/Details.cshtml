@@ -1,6 +1,10 @@
 ﻿@page "{id:int}"
 @model TaskNinja.Pages.TaskManager.DetailsModel
 
+@{
+    ViewData["Title"] = "Details";
+}
+
 <div class="container mt-4">
     @{
         var task = Model.Task;
