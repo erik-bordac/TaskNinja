@@ -13,7 +13,13 @@ namespace TaskNinja
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/TaskManager");
+                options.Conventions.AuthorizeFolder("/TeamsManager");
+                options.Conventions.AuthorizeFolder("/Dashboard");
+                options.Conventions.AuthorizePage("/TeamInvites");
+            });
             builder.Services.AddDefaultIdentity<User>().AddEntityFrameworkStores<DatabaseContext>();
             builder.Services.AddScoped<ITodoTaskService, MyTodoTaskService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
