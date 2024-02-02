@@ -60,11 +60,11 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnPostDelete(int id)
         {
-            if (!IsAuthor()) return Unauthorized();
 
-            var task = _taskService.GetByIdAsync(id).Result;
-            task.Status = Action;
-            _taskService.DeleteAsync(task);
+            Task = _taskService.GetByIdAsync(id).Result;
+            if (!IsAuthor()) return Unauthorized();
+            Task.Status = Action;
+            _taskService.DeleteAsync(Task);
             return RedirectToPage("/TaskManager/Index");
         }
 
@@ -97,7 +97,8 @@ namespace TaskNinja.Pages.TaskManager
 
         public bool IsAuthor()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier) == Task?.UserId;
+            var x = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return x == Task?.UserId;
         }
 
         private void loadPage(int id)
