@@ -37,14 +37,30 @@ namespace TaskNinja.Pages.TaskManager
 
         public IActionResult OnGet(int id)
         {
-            loadPage(id);
+            var currUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Task = _taskService.GetByIdAsync(id).Result;
+            Comments = _commentService.GetAllFromTask(id).Result;
+
+            if (currUserId != Task.UserId && Task.TeamId == null)
+            {
+                return Unauthorized();
+            }
+
+            if (Task.TeamId is not null)
+            {
+                var teamMembers = _teamsService.GetMembersIdByTeamId((int)Task.TeamId);
+                if (!teamMembers.Contains(currUserId))
+                {
+                    return Unauthorized();
+                }
+            }
+
+            //loadPage(id);
 
             if (Task is null)
             {
                 return RedirectToPage("/Error");
             }
-
-
             return Page();
         }
 
